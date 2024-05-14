@@ -1,6 +1,7 @@
 package View;
 
 import Model.AnimalRegister;
+import Model.Exception.MyException;
 
 import java.util.Scanner;
 
@@ -14,19 +15,20 @@ public class Console implements View {
     }
     @Override
     public void start() {
-        hello();
-        printMenu();
+        try {
+            printMenu();
+        } catch (MyException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    private void hello() {
-        answer("Добро пожаловать в меню приложение");
+    //Выход из программы
+       public void finish() {
+           System.out.println("Exiting program.");
+           System.exit(0);
+           scanner.close();
     }
-    public void finish() {
-        answer("Сеанс завершен. До свидания!");
-        //work = false;
-        scanner.close();
-    }
-    private void printMenu(){
+    private void printMenu() throws MyException {
         AnimalRegister registry = new AnimalRegister();
         Scanner scanner = new Scanner(System.in);
 
@@ -43,35 +45,37 @@ public class Console implements View {
 
             switch (choice) {
                 case 1:
-                    System.out.print("Enter animal name: ");
-                    String name = scanner.next();
-                    System.out.print("Enter animal type: ");
-                    String type = scanner.next();
-                    System.out.print("Enter animal birth date: ");
-                    String birthDate = scanner.next();
-                    registry.addAnimal(name, type, birthDate);
+//                    System.out.print("Enter animal name: ");
+//                    String name = scanner.next();
+//                    System.out.print("Enter animal type: ");
+//                    String type = scanner.next();
+//                    System.out.print("Enter animal birth date: ");
+//                    String birthDate = scanner.next();
+//                    registry.addAnimal(name, type, birthDate);
+                    registry.addAnimal();
+
                     break;
                 case 2:
                     System.out.print("Enter animal name: ");
                     String animalName = scanner.next();
                     System.out.print("Enter command: ");
                     String command = scanner.next();
-                    registry.addCommand(animalName, command);
+                    //registry.addCommand(animalName, command);
                     break;
                 case 3:
-                    System.out.print("Enter animal name: ");
-                    String animalName2 = scanner.next();
-                    registry.displayCommands(animalName2);
+                    System.out.print("Введите кличку животного: ");
+                    String nameOfAnimal = scanner.next();
+                    registry.displayCommands(nameOfAnimal);
                     break;
                 case 4:
-                    registry.sortAnimalsByBirthDate();
+                    //registry.sortAnimalsByBirthDate();
+                    registry.sortByBrith();
                     break;
                 case 5:
                     registry.setCountAnimalt();
                     break;
                 case 6:
-                    System.out.println("Exiting program.");
-                    System.exit(0);
+                    finish();
                     break;
                 default:
                     System.out.println("Invalid choice. Please try again.");

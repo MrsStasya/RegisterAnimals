@@ -2,6 +2,8 @@ import View.Console;
 
 public class Main {
     public static void main(String[] args) {
+
+
         Console console = new Console();
         console.start();
 //        Map <String, Animal> map = new HashMap<>();
@@ -11,6 +13,7 @@ public class Main {
 //        map.put("1", newA);
 //        map.put("2", newAn);
 //        System.out.println(map);
+
 
 
 

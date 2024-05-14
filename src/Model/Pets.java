@@ -2,9 +2,9 @@ package Model;
 
 public class Pets extends Animal {
 
-    public Pets (String name, String type, String birthDate )
+    public Pets (Integer id,String name, String type, String birthDate, String commands)
     {
-        super(name, type, birthDate);
+        super(id, name, type, birthDate, commands);
     }
 
 }

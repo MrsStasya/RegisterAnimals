@@ -4,7 +4,8 @@ package Model;
 public class Donkey extends PackAnimal {
 
 
-    public Donkey (String name, String type, String birthDate) {
-        super(name, type, birthDate);
+    public Donkey (Integer id,String name, String type, String birthDate, String commands)
+    {
+        super(id, name, "Donkey", birthDate, commands);
     }
 }
