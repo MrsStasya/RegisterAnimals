@@ -57,9 +57,9 @@ public class Console implements View {
 
                     break;
                 case 2:
-                    System.out.print("Enter animal name: ");
-                    String animalName = scanner.next();
-                    System.out.print("Enter command: ");
+                    System.out.print("Введите кличку животного: ");
+                    String nameAnimal = scanner.next();
+                    System.out.print("Необходимо ввести команду(несколько команд вводится через пробел): ");
                     String command = scanner.next();
                     //registry.addCommand(animalName, command);
                     break;
