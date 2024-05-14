@@ -135,21 +135,19 @@ public class AnimalRegister {
     }
 
       */
+//Метод для вывода команд животного по его кличке. Работает, не трогай!!!
+    public void displayCommands(String nameOfAnimal) throws MyException {
+        for (Animal show : register) {
+            if (show.getName().equals(nameOfAnimal)) {
+                System.out.println(nameOfAnimal + " умеет выполнять следующие команды " + show.getCommands());
+                break;
+            }
+            else {
+                System.out.println(nameOfAnimal + " отсутствует в регистре ");
 
-    public void displayCommands(String nameOfAnimal) {
-//        for(Animal animal: register) {
-//            if(register.contains(nameOfAnimal)) {
-//                System.out.println("Команды, которые умеет выполнять " + nameOfAnimal + ": " + animal.getCommands());
-//
-//            }
-//            else System.out.println("Нет такого животного");
-//        }
-
-        register.sort(Comparator.comparing(Animal::getName));
-        for (Animal animal: register) {
-            System.out.println(nameOfAnimal + " умеет выполнять следующие команды" + animal.getCommands());
+            }
+            break;
         }
-
     }
 
 

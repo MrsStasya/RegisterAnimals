@@ -3,6 +3,7 @@ package View;
 import Model.AnimalRegister;
 import Model.Exception.MyException;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Console implements View {
@@ -17,7 +18,7 @@ public class Console implements View {
     public void start() {
         try {
             printMenu();
-        } catch (MyException e) {
+        } catch (MyException | IOException e) {
             throw new RuntimeException(e);
         }
     }
@@ -28,7 +29,7 @@ public class Console implements View {
            System.exit(0);
            scanner.close();
     }
-    private void printMenu() throws MyException {
+    private void printMenu() throws MyException, IOException {
         AnimalRegister registry = new AnimalRegister();
         Scanner scanner = new Scanner(System.in);
 
@@ -66,6 +67,7 @@ public class Console implements View {
                     System.out.print("Введите кличку животного: ");
                     String nameOfAnimal = scanner.next();
                     registry.displayCommands(nameOfAnimal);
+
                     break;
                 case 4:
                     //registry.sortAnimalsByBirthDate();
