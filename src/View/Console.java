@@ -1,9 +1,7 @@
 package View;
 
 import Model.AnimalRegister;
-import Model.Exception.MyException;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 public class Console implements View {
@@ -15,11 +13,13 @@ public class Console implements View {
 
     }
     @Override
-    public void start() {
+    public void start() throws Exception {
         try {
             printMenu();
-        } catch (MyException | IOException e) {
-            throw new RuntimeException(e);
+        }
+        catch (Exception e) {
+            throw new RuntimeException();
+
         }
     }
 
@@ -29,7 +29,7 @@ public class Console implements View {
            System.exit(0);
            scanner.close();
     }
-    private void printMenu() throws MyException, IOException {
+    private void printMenu() throws Exception {
         AnimalRegister registry = new AnimalRegister();
         Scanner scanner = new Scanner(System.in);
 
@@ -61,7 +61,7 @@ public class Console implements View {
                     String nameAnimal = scanner.next();
                     System.out.print("Необходимо ввести команду(несколько команд вводится через пробел): ");
                     String command = scanner.next();
-                    //registry.addCommand(animalName, command);
+                    registry.addCommand(nameAnimal, command);
                     break;
                 case 3:
                     System.out.print("Введите кличку животного: ");

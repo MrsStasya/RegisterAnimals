@@ -5,7 +5,7 @@ import Model.Exception.MyException;
 import java.util.*;
 
 public class AnimalRegister {
-    private HashMap<String, Animal> animals;
+    private HashMap<String, String> animals;
     private List<Animal> register; //делаем массив данных
     //private ArrayList<String> command; //для команд
 
@@ -91,76 +91,76 @@ public class AnimalRegister {
         }
 
     }
-    /* Этот кусок для команд в формате ArrayList
-//    public ArrayList<String> setCommand(String com) throws MyException {
-//        String[] command = com.split(" ");
-//        if(checkIfText(com) == true){
-//            this.command = new ArrayList<>(List.of(com));
-//        } else {
-//            throw new MyException("Повторите ввод");
-//        }
-//        return null;
-//    }
-
-
-
-    public boolean checkIfText(String com){
-        return com.matches("\\D+");
-    }
-
-     */
-
-    /* Пока убрала, чтобы проверить как работает п.1 , п.4. и п.5
 
     //Добавление команды для животного
-    public void addCommand(String name, String command) {
-        Animal animal = animals.get(name);
-        if (animal != null) {
-            animal.addCommand(command);
-        } else {
-            System.out.println("Animal not found. You can't add command!");
-        }
+    public void addCommand(String nameAnimal, String command) {
+        String str;
+        Set<Animal> set = new LinkedHashSet<Animal>();
+        Set<Animal> set2 = new LinkedHashSet<Animal>();
+        for (Animal number : register) {
+            if (number.getName().equals(nameAnimal)) {
+                str = number.getCommands() + ", " + command; //беру команды и соединяю с теми, что ввели
+                Animal changeComands = new Animal(number.id, number.getName(), number.getType(), number.getBirthDate(), str); //создаю новое животное с обновленным набором команд
+                set.add(changeComands); //добавление нового животного в Set
+                set2.addAll(removeAnimal(nameAnimal));
+                set2.addAll(set);
+                register.addAll(set2);
+                //register.add(changeComands);
+                System.out.println("Изменения внесены успешно");
+                System.out.println(register);
     }
-    */
-//Вывод команд для животного
-
-     /* Это работает для HashMap
-    public void displayCommands(String name) {
-        Animal animal = animals.get(name);
-        if (animal != null) {
-            animal.displayCommands();
-        } else {
-            System.out.println("Animal not found.");
-        }
-    }
-
-      */
-//Метод для вывода команд животного по его кличке. Работает, не трогай!!!
-    public void displayCommands(String nameOfAnimal) throws MyException {
-        for (Animal show : register) {
-            if (show.getName().equals(nameOfAnimal)) {
-                System.out.println(nameOfAnimal + " умеет выполнять следующие команды " + show.getCommands());
-                break;
-            }
             else {
-                System.out.println(nameOfAnimal + " отсутствует в регистре ");
+                System.out.println(nameAnimal + " отсутствует в регистре ");
+                System.out.println(register.toString());
+                break;
 
             }
-            break;
+        }
+    }
+//
+//    //Создаем строку с командой
+//    public void getString(String nameAnimal, String command) {
+//        String str;
+//        for (Animal number : register) {
+//            if (number.getName().equals(nameAnimal)) {
+//                str = number.getCommands() + ", " + command; //беру команды и соединяю с теми, что ввели
+//                Animal changeComands = new Animal(number.id, number.getName(), number.getType(), number.getBirthDate(), str);
+//            }
+//        }
+//    }
+
+    //Поиск и удаление элемента из register
+    public List<Animal> removeAnimal (String nameAnimal){
+
+        Iterator<Animal> iterator = register.iterator();
+        while (iterator.hasNext()) {
+            Animal nextAnimal = iterator.next(); //получаем следующий элемент
+            if (nextAnimal.getName().equals(nameAnimal)) { //условие, когда будет происходить удаление
+                iterator.remove(); //удаление элемента
+            }
+
+        }
+        return new ArrayList<>(register);
+    }
+
+
+//Вывод команд для животного
+    public void displayCommands(String nameOfAnimal) {
+        convertToMap(register);
+        if (animals.containsKey(nameOfAnimal)) {
+            System.out.println(nameOfAnimal + " выполняет команды: " + animals.get(nameOfAnimal));
+        } else {
+            System.out.println("Животное отсутствует в списке");
         }
     }
 
 
-    /* Это работает для HashMap
-    public void sortAnimalsByBirthDate() {
-        System.out.println("Animals sorted by birth date:");
-        animals.values().stream()
-                .sorted((a1, a2) -> a1.getBirthDate().compareTo(a2.getBirthDate()))
-                .forEach(a -> System.out.println(a.getName() + " - " + a.getBirthDate()));
+    //Метод преобразования ArrayList в Map (для метода displayCommands)
+    public void convertToMap (List<Animal> register) {
+        for (Animal map: register) {
+            animals.put(map.getName(), map.getCommands());
+        }
     }
-
-     */
-
 
     // Сортировка по дате рожденияи - работает не трогать!
     public void sortByBrith () {
@@ -169,8 +169,6 @@ public class AnimalRegister {
         for (Animal animal: register) {
             System.out.println(animal.toString());
         }
-
-
     }
 
     // Вывод сколько животных всего + вывод всего регистра животных
@@ -180,8 +178,5 @@ public class AnimalRegister {
         System.out.println("The amount of animals is " + countAnimal);
         //System.out.println(animals);
         System.out.println(register);
-
-
     }
-
 }
