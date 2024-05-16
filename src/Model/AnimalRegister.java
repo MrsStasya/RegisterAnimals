@@ -1,11 +1,11 @@
 package Model;
 
-import Model.Exception.MyException;
-
 import java.util.*;
 
 public class AnimalRegister {
     private HashMap<String, String> animals;
+    private HashMap<String, List<Animal>> animalHashMap;
+
     private List<Animal> register; //делаем массив данных
     //private ArrayList<String> command; //для команд
 
@@ -42,15 +42,27 @@ public class AnimalRegister {
 
 
 // Добавление нового животного в список - работает не трогать!
-    public void addAnimal() throws MyException {
+//    public void addAnimal() throws MyException {
+//        Animal newA = createAnimal();
+//        try {
+//            if(newA != null) {
+//                register.add(newA);
+//                System.out.println("Животное успешно добавлено!");
+//            }
+//        } catch (Exception e) {
+//            throw new RuntimeException("Выполнен неверный ввод. Животное не может быть добавлено. Попробуйте снова");
+//        }
+//    }
+
+    public void addAnimal() {
         Animal newA = createAnimal();
-        try {
+
             if(newA != null) {
                 register.add(newA);
                 System.out.println("Животное успешно добавлено!");
             }
-        } catch (Exception e) {
-            throw new RuntimeException("Выполнен неверный ввод. Животное не может быть добавлено. Попробуйте снова");
+        else {
+                System.out.println("Выполнен неверный ввод. Животное не может быть добавлено. Попробуйте снова");
         }
     }
 
@@ -93,56 +105,99 @@ public class AnimalRegister {
     }
 
     //Добавление команды для животного
-    public void addCommand(String nameAnimal, String command) {
-        String str;
-        Set<Animal> set = new LinkedHashSet<Animal>();
-        Set<Animal> set2 = new LinkedHashSet<Animal>();
-        for (Animal number : register) {
-            if (number.getName().equals(nameAnimal)) {
-                str = number.getCommands() + ", " + command; //беру команды и соединяю с теми, что ввели
-                Animal changeComands = new Animal(number.id, number.getName(), number.getType(), number.getBirthDate(), str); //создаю новое животное с обновленным набором команд
-                set.add(changeComands); //добавление нового животного в Set
-                set2.addAll(removeAnimal(nameAnimal));
-                set2.addAll(set);
-                register.addAll(set2);
-                //register.add(changeComands);
-                System.out.println("Изменения внесены успешно");
-                System.out.println(register);
-    }
-            else {
-                System.out.println(nameAnimal + " отсутствует в регистре ");
-                System.out.println(register.toString());
-                break;
-
-            }
-        }
-    }
-//
-//    //Создаем строку с командой
-//    public void getString(String nameAnimal, String command) {
+    //Вариант 1 - не ищет нормально
+//    public void addCommand(String nameAnimal, String command) {
 //        String str;
+//        Set<Animal> set = new LinkedHashSet<Animal>();
+//        //Set<Animal> set2 = new LinkedHashSet<Animal>();
 //        for (Animal number : register) {
 //            if (number.getName().equals(nameAnimal)) {
 //                str = number.getCommands() + ", " + command; //беру команды и соединяю с теми, что ввели
-//                Animal changeComands = new Animal(number.id, number.getName(), number.getType(), number.getBirthDate(), str);
+//                Animal changeComands = new Animal(number.id, number.getName(), number.getType(), number.getBirthDate(), str); //создаю новое животное с обновленным набором команд
+//                set.add(changeComands); //добавление нового животного в Set
+////                set2.addAll(removeAnimal(nameAnimal));
+////                set2.addAll(set);
+//                //register.addAll(set2);
+//                removeAnimal(nameAnimal);
+//                register.addAll(set);
+//                //register.add(changeComands);
+//                System.out.println("Изменения внесены успешно");
+//                System.out.println(register);
+//    }
+//            else {
+//                System.out.println(nameAnimal + " отсутствует в регистре ");
+//                System.out.println(register.toString());
+//                break;
+//
 //            }
 //        }
 //    }
 
-    //Поиск и удаление элемента из register
-    public List<Animal> removeAnimal (String nameAnimal){
+//    //Вариант 2
+//    public void addCommand(String nameAnimal, String command) {
+//        removeAnimal(nameAnimal);
+//        //getString(nameAnimal,command);
+//        register.add(getString(nameAnimal, command));
+//
+//
+//    }
+//
+//    //Создаем строку с командой
+//    public Animal getString(String nameAnimal, String command) {
+//        String str;
+//        Set<Animal> set = new LinkedHashSet<Animal>();
+//
+//        Animal changeAnimal = null;
+//        for (Animal number : register) {
+//            if (number.getName().equals(nameAnimal)) {
+//                str = number.getCommands() + ", " + command; //беру команды и соединяю с теми, что ввели
+//                changeAnimal = new Animal(number.id, number.getName(), number.getType(), number.getBirthDate(), str);
+//                //set.add(changeAnimal);
+//            }
+//        }
+//        return changeAnimal;
+//    }
+//
+//    //Поиск и удаление элемента из register
+//    public List<Animal> removeAnimal (String nameAnimal){
+//
+//        Iterator<Animal> iterator = register.iterator();
+//        while (iterator.hasNext()) {
+//            Animal nextAnimal = iterator.next(); //получаем следующий элемент
+//            if (nextAnimal.getName().equals(nameAnimal)) { //условие, когда будет происходить удаление
+//                iterator.remove(); //удаление элемента
+//            }
+//
+//        }
+//        return new ArrayList<>(register);
+//    }
+//
 
-        Iterator<Animal> iterator = register.iterator();
-        while (iterator.hasNext()) {
-            Animal nextAnimal = iterator.next(); //получаем следующий элемент
-            if (nextAnimal.getName().equals(nameAnimal)) { //условие, когда будет происходить удаление
-                iterator.remove(); //удаление элемента
-            }
+    //Вариант 3 - пора спать
+    public void addCommand(String nameAnimal, String command) {
+        convertMap(register);
+        List<Animal> animalCom = animalHashMap.get(nameAnimal);
+        if(animalHashMap.containsKey(nameAnimal)){
+
+
 
         }
-        return new ArrayList<>(register);
-    }
+//        if (animalHashMap.containsKey(nameAnimal)) {
+//            System.out.println(nameAnimal + " есть в регистре. Вы можете добавить команды");
+//
+//        } else {
+//            System.out.println("Животное отсутствует в списке");
+//        }
 
+
+    }
+    //Метод преобразования ArrayList в Map (для метода AddCommands)
+    public void convertMap (List<Animal> register) {
+        for (Animal map: register) {
+            animalHashMap.put(map.getName(), register);
+
+        }
+    }
 
 //Вывод команд для животного
     public void displayCommands(String nameOfAnimal) {

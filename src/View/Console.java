@@ -13,14 +13,9 @@ public class Console implements View {
 
     }
     @Override
-    public void start() throws Exception {
-        try {
-            printMenu();
-        }
-        catch (Exception e) {
-            throw new RuntimeException();
+    public void start() {
+        printMenu();
 
-        }
     }
 
     //Выход из программы
@@ -29,7 +24,7 @@ public class Console implements View {
            System.exit(0);
            scanner.close();
     }
-    private void printMenu() throws Exception {
+    private void printMenu() {
         AnimalRegister registry = new AnimalRegister();
         Scanner scanner = new Scanner(System.in);
 
