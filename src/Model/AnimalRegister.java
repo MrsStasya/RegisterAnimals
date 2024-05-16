@@ -179,18 +179,8 @@ public class AnimalRegister {
         List<Animal> animalCom = animalHashMap.get(nameAnimal);
         if(animalHashMap.containsKey(nameAnimal)){
 
-
-
         }
-//        if (animalHashMap.containsKey(nameAnimal)) {
-//            System.out.println(nameAnimal + " есть в регистре. Вы можете добавить команды");
-//
-//        } else {
-//            System.out.println("Животное отсутствует в списке");
-//        }
-
-
-    }
+     }
     //Метод преобразования ArrayList в Map (для метода AddCommands)
     public void convertMap (List<Animal> register) {
         for (Animal map: register) {
