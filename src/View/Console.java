@@ -6,10 +6,8 @@ import java.util.Scanner;
 
 public class Console implements View {
     private Scanner scanner;
-//    private boolean work;
     public Console() {
         scanner = new Scanner(System.in);
-       // work = true;
 
     }
     @Override
@@ -41,15 +39,7 @@ public class Console implements View {
 
             switch (choice) {
                 case 1:
-//                    System.out.print("Enter animal name: ");
-//                    String name = scanner.next();
-//                    System.out.print("Enter animal type: ");
-//                    String type = scanner.next();
-//                    System.out.print("Enter animal birth date: ");
-//                    String birthDate = scanner.next();
-//                    registry.addAnimal(name, type, birthDate);
                     registry.addAnimal();
-
                     break;
                 case 2:
                     System.out.print("Введите кличку животного: ");
@@ -65,7 +55,6 @@ public class Console implements View {
 
                     break;
                 case 4:
-                    //registry.sortAnimalsByBirthDate();
                     registry.sortByBrith();
                     break;
                 case 5:
