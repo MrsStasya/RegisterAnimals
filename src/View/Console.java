@@ -13,7 +13,7 @@ public class Console implements View {
 
     }
     @Override
-    public void start() {
+    public void start() throws MyException {
         printMenu();
 
     }
